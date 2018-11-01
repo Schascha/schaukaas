@@ -4,7 +4,7 @@
 	"description": "Just a CSS Showcase",
 	"author": "Schascha <contact.schascha@gmail.com>",
 	"license": "MIT",
-	"main": "docs/index.html",
+	"main": "index.html",
 	"dependencies": {},
 	"devDependencies": {
 		"autoprefixer": "^9.3.1",

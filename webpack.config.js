@@ -37,9 +37,7 @@ module.exports = {
 	devServer: {
 		historyApiFallback: true,
 		overlay: true,
-		noInfo: true,
-		// contentBase: path.resolve(__dirname, 'docs'),
-		publicPath: '/dist/'
+		noInfo: true
 	},
 	watch: true,
 	plugins: [
