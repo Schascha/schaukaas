@@ -3,7 +3,26 @@ $pie-color-active: #e74c3c !default;
 $pie-color-hover: #c0392b !default;
 $pie-size: 25em !default;
 $pie-items: 6 !default;
-$pie-angle: 360 / $pie-items;
+$pie-offset: 360 / $pie-items !default;
+
+@mixin pie-sector($pie-items: $pie-items, $pie-offset: $pie-offset) {
+	$pie-angle: 360 / $pie-items;
+
+	@for $i from 1 through $pie-items {
+		&:nth-child(#{$i}) {
+			transform: rotate((($i - 1) * $pie-angle + $pie-offset) * 1deg) skew(90deg - $pie-angle);
+		}
+	}
+
+	> * {
+		transform: skew(-90deg + $pie-angle) rotate(-90deg + $pie-angle / 2) scale(1);
+	}
+
+	// Hide wrong amount of items
+	&:nth-child(n + #{$pie-items + 1}) {
+		display: none;
+	}
+}
 
 .pie {
 	width: $pie-size;
@@ -30,6 +49,7 @@ $pie-angle: 360 / $pie-items;
 	}
 
 	li {
+		@include pie-sector();
 		position: absolute;
 		width: 50%;
 		height: 50%;
@@ -39,14 +59,6 @@ $pie-angle: 360 / $pie-items;
 		left: 0;
 		top: 0;
 		transition: border .3s ease;
-		display: none;
-
-		@for $i from 1 through $pie-items {
-			&:nth-child(#{$i}) {
-			  transform: rotate(($i - 1) * $pie-angle * 1deg) skew(90deg - $pie-angle);
-			  display: block;
-			}
-		}
 
 		&.active ~ li {
 			a {
@@ -72,7 +84,6 @@ $pie-angle: 360 / $pie-items;
 		color: inherit;
 		padding-top: 20%;
 		text-align: center;
-		transform: skew(-90deg + $pie-angle) rotate(-90deg + $pie-angle / 2) scale(1);
 		transition: all 0.3s ease-out;
 		background-color: $pie-color-active;
 	}
