@@ -2,6 +2,8 @@ $pie-color: #fff !default;
 $pie-color-active: #e74c3c !default;
 $pie-color-hover: #c0392b !default;
 $pie-size: 25em !default;
+$pie-center-size: 40% !default;
+$pie-border-width: 1px !default;
 $pie-items: 6 !default;
 
 $pie-offset: 90 !default;
@@ -29,9 +31,9 @@ $pie-offset: 90 !default;
 }
 
 .pie {
-	width: $pie-size;
-	height: $pie-size;
 	overflow: hidden;
+	width: 100%;
+	max-width: $pie-size;
 	border-radius: 50%;
 	list-style: none;
 	margin: 0 auto;
@@ -40,29 +42,39 @@ $pie-offset: 90 !default;
 	background-color: $pie-color;
 	box-shadow: 0px 0px 1rem rgba(0, 0, 0, 0.2);
 
-	&::after {
+	// Ratio
+	&::before {
 		content: '';
-		position: absolute;
-		height: 10em;
-		width: 10em;
-		top: 50%;
-		left: 50%;
-		background: white;
-		border-radius: 50%;
-		transform: translate(-50%, -50%);
+		display: block;
+		padding-bottom: 100%;
+	}
+
+	// Center
+	@if $pie-center-size > 0 {
+		&::after {
+			content: '';
+			transform: translate(-50%, -50%);
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			width: $pie-center-size;
+			height: $pie-center-size;
+			background: inherit;
+			border-radius: 50%;
+		}
 	}
 
 	li {
 		@include pie-sector();
-		position: absolute;
-		width: 50%;
-		height: 50%;
-		font-size: 1.5em;
-		transform-origin: 100% 100%;
 		overflow: hidden;
+		transform-origin: 100% 100%;
+		position: absolute;
 		left: 0;
 		top: 0;
-		transition: border .3s ease;
+		width: 50%;
+		height: 50%;
+		border: $pie-border-width solid $pie-color;
+		font-size: 1.5em;
 
 		&.active ~ li {
 			a {
@@ -79,16 +91,15 @@ $pie-offset: 90 !default;
 	}
 
 	a {
-		display: block;
-		height: 200%;
-		width: 200%;
-		position: absolute;
-		border-radius: 50%;
-		text-decoration: none;
-		color: inherit;
-		padding-top: 20%;
-		text-align: center;
 		transition: all 0.3s ease-out;
+		position: absolute;
+		width: 200%;
+		height: 200%;
+		padding-top: 20%;
+		border-radius: 50%;
 		background-color: $pie-color-active;
+		color: inherit;
+		text-align: center;
+		text-decoration: none;
 	}
 }
