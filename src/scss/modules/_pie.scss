@@ -3,14 +3,18 @@ $pie-color-active: #e74c3c !default;
 $pie-color-hover: #c0392b !default;
 $pie-size: 25em !default;
 $pie-items: 6 !default;
-$pie-offset: 360 / $pie-items !default;
+
+$pie-offset: 90 !default;
+// left center: 0
+// top center: 90 - (360 / $pie-items) / 2
+// clockwise: 90
 
 @mixin pie-sector($pie-items: $pie-items, $pie-offset: $pie-offset) {
 	$pie-angle: 360 / $pie-items;
 
 	@for $i from 1 through $pie-items {
 		&:nth-child(#{$i}) {
-			transform: rotate((($i - 1) * $pie-angle + $pie-offset) * 1deg) skew(90deg - $pie-angle);
+			transform: rotate(($i - 1deg) * $pie-angle + $pie-offset) skew(90deg - $pie-angle);
 		}
 	}
 
