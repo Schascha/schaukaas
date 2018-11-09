@@ -1,7 +1,8 @@
 const
 	path = require('path'),
 	webpack = require('webpack'),
-	ExtractTextPlugin = require('extract-text-webpack-plugin');
+	ExtractTextPlugin = require('extract-text-webpack-plugin')
+;
 
 module.exports = {
 	entry: './src/scss/main.scss',
@@ -14,7 +15,8 @@ module.exports = {
 		rules: [{
 			test: /\.scss$/,
 			use: ExtractTextPlugin.extract({
-				use: [{
+				use: [
+					{
 						loader: 'css-loader'
 					},
 					{
@@ -39,7 +41,9 @@ module.exports = {
 		overlay: true,
 		noInfo: true
 	},
-	watch: true,
+	performance: {
+		hints: false
+	},
 	plugins: [
 		new ExtractTextPlugin({
 			filename: 'styles.css',
